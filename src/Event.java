@@ -34,7 +34,8 @@ public class Event implements Comparable<Event> {
     // Comparable implementation
     public int compareTo(Event e) {
 
-        return 0;
+        // Determine whether e comes before the current event or after.
+        return this.dateTime.compareTo(e.dateTime);
 
     }
 
