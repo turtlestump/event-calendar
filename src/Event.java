@@ -7,20 +7,6 @@ public class Event implements Comparable<Event> {
     String name;
     LocalDateTime dateTime;
 
-    // Constructors
-    Event() {
-
-        this.name = "Event";
-        this.dateTime = LocalDateTime.now();
-
-    }
-    Event(String name, LocalDateTime dateTime) {
-
-        this.name = name;
-        this.dateTime = dateTime;
-
-    }
-
     // Accessors
     String getName() {
 
