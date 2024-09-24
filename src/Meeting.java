@@ -1,21 +1,27 @@
 // Class imports
-import java.time.LocalDateTime;
+import java.time.*;
 
 public class Meeting extends Event implements Completable {
 
     // Attributes
     LocalDateTime endDateTime;
     String location;
+    boolean complete;
 
-    // Accessors
-    LocalDateTime getEndTime() {
+    // Constructor
+    public Meeting(String name, LocalDateTime start, LocalDateTime end, String location) {
 
-        return endDateTime;
+        this.name = name;
+        this.dateTime = start;
+        this.endDateTime = end;
+        this.location = location;
 
     }
-    int getDuration() {
 
-        return 0;
+    // Accessors
+    LocalDateTime getEndDateTime() {
+
+        return endDateTime;
 
     }
     String getLocation() {
@@ -25,9 +31,9 @@ public class Meeting extends Event implements Completable {
     }
 
     // Mutators
-    void setEndTime(LocalDateTime endDateTime) {
+    void setEndDateTime(LocalDateTime end) {
 
-        this.endDateTime = endDateTime;
+        this.endDateTime = end;
 
     }
     void setLocation(String location) {
@@ -36,15 +42,22 @@ public class Meeting extends Event implements Completable {
 
     }
 
+    // Other methods
+    Duration getDuration() {
+
+        return Duration.between(dateTime, endDateTime);
+
+    }
+
     // Completable implementation
     public void complete() {
 
-
+        complete = true;
 
     }
     public boolean isComplete() {
 
-        return false;
+        return complete;
 
     }
 
