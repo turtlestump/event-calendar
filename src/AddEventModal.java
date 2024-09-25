@@ -1,5 +1,6 @@
 // Class imports
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
@@ -20,6 +21,7 @@ public class AddEventModal extends JDialog {
         // Set window display information
         setTitle("Add Event");
         setSize(400, 400);
+        setLayout(new GridLayout(5, 2));
 
         // User-defined event information
         JLabel eventName = new JLabel("Event Name: ");              // Name
@@ -62,6 +64,7 @@ public class AddEventModal extends JDialog {
         JLabel eventType = new JLabel("Event Type: ");
         String[] eventTypes = {"Meeting", "Deadline"};
         JComboBox<String> eventTypeSelection = new JComboBox<>(eventTypes);
+        add(eventType);
 
         // Add confirm button
         JButton confirmButton = new JButton("Confirm");

@@ -1,7 +1,6 @@
 // Class imports
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -14,7 +13,6 @@ public class EventListPanel extends JPanel {
     // Create GUI elements for the event list.
     JPanel controlPanel = new JPanel();
     JPanel displayPanel = new JPanel();
-    JCheckBox filterDisplay = new JCheckBox();
     JButton addEventButton = new JButton("Add Event");
 
     // Constructor
@@ -22,15 +20,11 @@ public class EventListPanel extends JPanel {
 
         // Create layout for JFrame
         setLayout(new BorderLayout());
-
-        setPreferredSize(new Dimension(400, 400));
-        setBackground(Color.yellow);
-        displayPanel.setPreferredSize(new Dimension(400, 200));
-        controlPanel.setPreferredSize(new Dimension(400, 200));
+        controlPanel.setLayout(new FlowLayout());
 
         // Create sortDropDrown
         String[] sortBy = { "Name (A-Z)", "Name (Z-A)", "Date (Earliest)", " Date (Latest)" };
-        JComboBox<String> sortDropDown = new JComboBox(sortBy);
+        JComboBox<String> sortDropDown = new JComboBox<>(sortBy);
         sortDropDown.addActionListener(e -> sort(sortDropDown.getSelectedItem().toString()));
         controlPanel.add(new JLabel("Sort by: "));
         controlPanel.add(sortDropDown);
@@ -39,12 +33,17 @@ public class EventListPanel extends JPanel {
         addEventButton.addActionListener(e -> addEventModal());
         controlPanel.add(addEventButton);
 
+        // Display control panels.
+        add(controlPanel, BorderLayout.SOUTH);
+        add(new JScrollPane(displayPanel), BorderLayout.CENTER);
+
     }
 
     // Method to add events to the ArrayList
     void addEvent(Event e) {
 
         events.add(e);
+        updateEvents();
 
     }
 
@@ -72,6 +71,8 @@ public class EventListPanel extends JPanel {
 
         }
 
+        updateEvents();
+
     }
 
     // Method to open the add event modal.
@@ -79,6 +80,21 @@ public class EventListPanel extends JPanel {
 
         AddEventModal window = new AddEventModal(this);
         window.setVisible(true);
+
+    }
+
+    // Method to update event display
+    void updateEvents() {
+
+        // Remove all elements from displayPanel to start fresh
+        displayPanel.removeAll();
+
+        // Add each element of events back into displayPanel
+        for (Event e : events) {
+
+            displayPanel.add(new EventPanel(e));
+
+        }
 
     }
 
